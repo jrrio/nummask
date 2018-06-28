@@ -1,12 +1,11 @@
 /**
- * Formats input elements with a mask.
- * E.g. let masker = new Nummask(input);
+ * Formats numbers in input elements with a mask.
  * Tested in IE11, Edge, FF, Chrome.
  * @version 1.0 - 2018-06-27 - Joao Rodrigues
  * @license "MIT License".
  * @see <https://github.com/jrrio/nummask>
  */
-function Nummask(input) {
+function numMask(input) {
   let _oldValue = "", _mask = "", _reDigit;
 
   /**
