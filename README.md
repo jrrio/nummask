@@ -1,5 +1,5 @@
 # What is NumMask.js?
-**nummask.js** is a vanilla JavaScript code to format numbers in form fields - [`<input type="tel">`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/tel) - with a mask such as (99) 9999-9999 for example.
+**NumMask.js** is a vanilla JavaScript code to format numbers in form fields - [`<input type="tel">`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/tel) - with a mask such as (99) 9999-9999 for example.
 
 The code initially searches for _&lt;input&gt;_ elements having **type="tel"** and **data-mask**, applying event handlers to them.
 
