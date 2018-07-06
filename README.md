@@ -15,6 +15,15 @@ The code initially searches for _&lt;input&gt;_ elements having **type="tel"** a
 Download [nummask.js](https://github.com/jrrio/nummask/blob/master/nummask.js) and put a script tag referring to it just before the closing *body* tag. _E.g._
 
     <script type="text/javascript" src="path/nummask.js"></script>
+    <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded",
+      function () {
+        const tels = document.querySelectorAll(
+          "input[type=tel][data-mask]");
+        [].forEach.call(tels, numMask);
+      }
+    );
+    </script>
     
 # Example
 
