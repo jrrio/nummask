@@ -1,12 +1,14 @@
 /**
- * Formats numbers in input elements with a mask.
+ * Formats numbers inside input elements with a mask.
  * Tested in IE11, Edge, FF, Chrome.
  * @version 1.0 - 2018-06-27 - Joao Rodrigues
  * @license "MIT License".
  * @see <https://github.com/jrrio/nummask>
  */
 function numMask(input) {
-  let _oldValue = "", _mask = "", _reDigit;
+  let _oldValue = "",
+    _mask = "",
+    _reDigit;
 
   /**
    * Removes non-digit characters
@@ -22,15 +24,16 @@ function numMask(input) {
    */
   const setMask = function (unMaskedVal) {
     if (unMaskedVal == "") return _mask;
-    let maskArr = _mask.split('');
-    let valArr = unMaskedVal.split(''), j = 0;
-    [].forEach.call(maskArr, function (item, idx) {
+    let maskArr = _mask.split("");
+    let valArr = unMaskedVal.split(""),
+      j = 0;
+    [].forEach.call(maskArr, function(item, idx) {
       if (item === "_") maskArr[idx] = valArr[j++] || "_";
     });
-    return maskArr.join('');
+    return maskArr.join("");
   };
 
-  function setCaretPos(el) {
+  const setCaretPos = function (el) {
     const val = el.value;
     const unmasked = unMask(val);
     let caretPos = 0;
@@ -45,7 +48,7 @@ function numMask(input) {
       if (nextDigitPos > -1) caretPos = nextDigitPos;
     }
     el.setSelectionRange(caretPos, caretPos);
-  }
+  };
 
   /**
    * @param {Event} e
