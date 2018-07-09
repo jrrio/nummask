@@ -87,7 +87,8 @@ function numMask(input) {
   };
 
   if (input) {
-    _mask = input.dataset.mask || "";
+    _mask = input.dataset.mask;
+    if (!_mask) return;
     input.maxLength = _mask.length + 1;
     _reDigit = setRegex(_mask);
     input.addEventListener("focus", onFocus, false);
@@ -96,3 +97,11 @@ function numMask(input) {
     input.addEventListener("blur", onBlur, false);
   }
 }
+
+document.addEventListener("DOMContentLoaded",
+  function () {
+    const tels = document.querySelectorAll(
+      "input[type=tel][data-mask]");
+    [].forEach.call(tels, numMask);
+  }
+);
