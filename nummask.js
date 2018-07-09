@@ -97,11 +97,3 @@ function numMask(input) {
     input.addEventListener("blur", onBlur, false);
   }
 }
-
-document.addEventListener("DOMContentLoaded",
-  function () {
-    const tels = document.querySelectorAll(
-      "input[type=tel][data-mask]");
-    [].forEach.call(tels, numMask);
-  }
-);
