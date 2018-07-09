@@ -1,7 +1,7 @@
 # What is numMask.js?
-**numMask.js** is a vanilla JavaScript code to format numbers typed in [`<input type="tel">`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/tel) elements with a mask such as `(99) 9999-9999`.
+**numMask.js** is a vanilla JavaScript code to format input text elements with a number mask such as `(99) 9999-9999`.
 
-The code uses the input mask defined in a **data-mask** attribute in order to set event handlers to the input element. For instance:
+The code uses the mask pattern defined in a **data-mask** attribute in order to set event handlers on the input element. For instance:
 
 ```html
 <label for='tel1'>Tel 1:</label>
