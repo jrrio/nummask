@@ -2,13 +2,13 @@
  * Formats numbers inside input elements with a mask.
  * Tested in IE11, Edge, FF, Chrome.
  * @version 1.0 - 2018-06-27 - Joao Rodrigues
- * @license "MIT License".
+ * @license MIT
  * @see <https://github.com/jrrio/nummask>
+ * @param {HTMLInputElement} input
+ * @param {String} [mask] - optional parameter as mask might be defined in data-mask attribute
  */
-function numMask(input) {
-  let _oldValue = "",
-    _mask = "",
-    _reDigit;
+function numMask(input, /*optional*/ mask) {
+  let _mask, _oldValue,  _reDigit;
 
   /**
    * Removes non-digit characters
@@ -20,15 +20,16 @@ function numMask(input) {
 
   /**
    * Returns the masked value
-   * @param {String} unMaskedVal
+   * @param {String} val - input text
+   * @returns {String} masked text
    */
-  const setMask = function (unMaskedVal) {
-    if (unMaskedVal == "") return _mask;
+  const setMask = function (val) {
+    const unMaskedVal = unMask(val);
+    if (unMaskedVal === "") return _mask;
     let maskArr = _mask.split("");
-    let valArr = unMaskedVal.split(""),
-      j = 0;
-    [].forEach.call(maskArr, function(item, idx) {
-      if (item === "_") maskArr[idx] = valArr[j++] || "_";
+    let valArr = unMaskedVal.split(""), j = 0;
+    maskArr.forEach(function (el, idx) {
+      if (/\d|_/.test(el)) maskArr[idx] = valArr[j++] || "_";
     });
     return maskArr.join("");
   };
@@ -38,8 +39,7 @@ function numMask(input) {
     const unmasked = unMask(val);
     let caretPos = 0;
     if (unmasked.length) {
-      const lastdigit = unmasked.slice(-1);
-      const lastDigitPos = val.lastIndexOf(lastdigit);
+      const lastDigitPos = val.search(/\d(?!.*\d)/);
       if (lastDigitPos > -1) {
         caretPos = lastDigitPos + 1;
       }
@@ -54,8 +54,8 @@ function numMask(input) {
    * @param {Event} e
    */
   const onFocus = function (e) {
-    let el = e.currentTarget;
-    if (unMask(el.value) == "") el.value = _mask;
+    const el = e.currentTarget;
+    if (unMask(el.value) === "") el.value = _mask;
     setCaretPos(el);
   };
 
@@ -78,7 +78,7 @@ function numMask(input) {
 
   const onBlur = function (e) {
     let el = e.currentTarget;
-    if (unMask(el.value) == "") el.value = "";
+    if (unMask(el.value) === "") el.value = "";
   };
 
   const setRegex = function (mask) {
@@ -87,10 +87,10 @@ function numMask(input) {
   };
 
   if (input) {
-    _mask = input.dataset.mask;
+    _mask = mask || input.dataset.mask;
     if (!_mask) return;
-    input.maxLength = _mask.length + 1;
     _reDigit = setRegex(_mask);
+    input.maxLength = _mask.length + 1;
     input.addEventListener("focus", onFocus, false);
     input.addEventListener("keydown", onKeydown, false);
     input.addEventListener("input", onInput, false);
