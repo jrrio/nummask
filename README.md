@@ -1,5 +1,5 @@
 # What is numMask.js?
-**numMask.js** is a vanilla JavaScript code to format input text elements with a number mask such as `(99) 9999-9999`.
+**numMask.js** is a vanilla JavaScript code to format input elements, usually of types 'text' and 'tel', with a number mask such as `(99) 9999-9999`.
 
 The code expects a fixed-width mask pattern, either defined in a **data-mask** attribute or passed as an optional argument. Only the underscore (`_`) characters within the mask will be used for number entry. For instance:
 
