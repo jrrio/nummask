@@ -26,10 +26,10 @@ function numMask(input, /*optional*/ mask) {
   const setMask = function (val) {
     const unMaskedVal = unMask(val);
     if (unMaskedVal === "") return _mask;
-    let maskArr = _mask.split("");
-    let valArr = unMaskedVal.split(""), j = 0;
+    const maskArr = _mask.split("");
+    let j = 0;
     maskArr.forEach(function (el, idx) {
-      if (/\d|_/.test(el)) maskArr[idx] = valArr[j++] || "_";
+      if (/\d|_/.test(el)) maskArr[idx] = unMaskedVal[j++] || "_";
     });
     return maskArr.join("");
   };
@@ -60,8 +60,15 @@ function numMask(input, /*optional*/ mask) {
   };
 
   const onKeydown = function (e) {
-    let el = e.currentTarget;
-    _oldValue = el.value;
+    const el = e.currentTarget;
+    const key = e.key;
+    // IE 11 uses Del, Left and Right
+    const allowed = /^\d|Tab|Delete|Backspace|Arrow(?=Left|Right)|Right|Left|Del$/i;
+    if (allowed.test(key) || (e.ctrlKey && (key === "v" || key === "V"))) {
+      _oldValue = el.value;
+    } else {
+      e.preventDefault();
+    }
   };
 
   const onInput = function (e) {
@@ -81,7 +88,7 @@ function numMask(input, /*optional*/ mask) {
     if (unMask(el.value) === "") el.value = "";
   };
 
-  const setRegex = function (mask) {
+  const setRegExp = function (mask) {
     const len = (mask.match(/_/g) || []).length;
     return new RegExp("^\\d{0," + len + "}$");
   };
@@ -89,7 +96,7 @@ function numMask(input, /*optional*/ mask) {
   if (input) {
     _mask = mask || input.dataset.mask;
     if (!_mask) return;
-    _reDigit = setRegex(_mask);
+    _reDigit = setRegExp(_mask);
     input.maxLength = _mask.length + 1;
     input.addEventListener("focus", onFocus, false);
     input.addEventListener("keydown", onKeydown, false);
